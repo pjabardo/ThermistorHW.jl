@@ -1,0 +1,5 @@
+module ThermistorHW
+
+# package code goes here
+
+end # module
