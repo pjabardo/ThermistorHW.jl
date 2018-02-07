@@ -9,9 +9,9 @@ Models a NTC Thermistor
 
 In this model, the resistance obeys the following equation:
 
-$$
+``
 R = R₀ \exp\left(\frac{1}{T₀} - \frac{1}{T}\right)
-$$
+^^
 
 where 
  * R₀ is the resistance at temperature T₀
@@ -29,7 +29,10 @@ struct Thermistor <: AbstractResistor
     Thermistor(R₀=5e3, B=0.0, T₀=20.0) = new(R₀, B, T₀+273.15)
 end
 
-Resistor(R₀) = Thermistor(R₀, 0.0, 20.0)
+
+
+
+#Resistor(R₀) = Thermistor(R₀, 0.0, 20.0)
 
 """
 Calculates the resistance of a thermistor
@@ -56,3 +59,33 @@ temperature(th::Thermistor) = th.T₀-273.15
 temperature(th::Thermistor, R) = 1/( 1/th.T₀ + 1/th.B * log(R/th.R₀) ) - 273.15
 
 
+
+struct Resistor <: AbstractResistor
+    R₀::Float64
+    "Empirical coefficient that models the behavior of the thermistor, unit 1/K"
+    α::Float64
+    "Reference temperature in K"
+    T₀::Float64
+    Resistor(R0, alphap) = new(R0, alphap/100, 20)
+end
+resistance(r::Resistor) = r.R₀ 
+resistance(r::Resistor, T) = r.R₀ * (1 +  r.α*(T - r.T₀)) 
+(r::Resistor)(T) = resistance(r, T)
+(r::Resistor)() = resistance(r)
+
+temperature(r::Resistor) = r.T₀
+temperature(r::Resistor, R) = 1/r.α * (R/r.R₀ - 1) + r.T₀
+
+
+struct Wheatstone
+    R::Vector{Thermistor}
+    Wheatstone(R1::Thermistor, R2::Thermistor, R3::Thermistor, R4::Thermistor)  = new([R1, R2, R3, R4])
+end
+
+import Base.getindex
+getindex(w::Wheatstone, i) = w.R[i]
+
+Wheatstone(R::Vector{Thermistor}) = Wheatstone(R...)
+
+resistance(w::Wheatstone, i) = w.R[i]()
+resistance(w::Wheatstone, i, T) = w.R[i](T)
