@@ -6,7 +6,7 @@ Models anemometers
 
 
 
-function const_current(mA, R::Thermistor, U=5.0, d=3.0, Ta=20.0, Pa=101e3, dterr=1e-6, nmax=20000)
+function const_current(mA, R::Thermistor, U=5.0, d=3.0, Ta=20.0, Pa=101.3, dterr=1e-6, nmax=20000)
 
     I = mA/1000
 
@@ -38,7 +38,7 @@ function const_current(mA, R::Thermistor, U=5.0, d=3.0, Ta=20.0, Pa=101e3, dterr
 end
 
 
-function const_temperature(Tw, R::Thermistor, U=5.0, d=3.0, Ta=20.0, Pa=101e3)
+function const_temperature(Tw, R::Thermistor, U=5.0, d=3.0, Ta=20.0, Pa=101.3)
 
 
 
