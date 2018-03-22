@@ -15,4 +15,6 @@ density(x::AbstractSubstance) = x.ρ
 specheat(x::AbstractSubstance) = x.cₚ
 thermalcond(x::AbstractSubstance) = x.k
 
+const Fe₂O₃ = Solid(5242.0, 650.6, 0.58)
+
 
