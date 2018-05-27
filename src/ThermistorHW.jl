@@ -1,7 +1,17 @@
+
+"""
+    ThermistorHW
+
+Cálculo de propriedades de termistores e sua aplicação em 
+termo-anemometria.
+
+
+"""
 module THW
 
 # package code goes here
 
+export Thermistor, Resistor, resistance, temperature, Wheatstone
 
 abstract type AbstractSubstance end
 abstract type AbstractFluid <: AbstractSubstance end
@@ -13,15 +23,6 @@ include("air.jl")
 include("solid.jl")
 include("heattrans.jl")
 include("anemometer.jl")
-
-
-
-
-
-
-
-
-
 
     
 end # module
