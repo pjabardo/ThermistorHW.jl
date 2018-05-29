@@ -12,6 +12,10 @@ module THW
 # package code goes here
 
 export Thermistor, Resistor, resistance, temperature
+export myhorner, IdealGas, AirType, Air, heatcond, viscosity, density, kinviscosity, specheat
+export thermaldiff, prandtl, volthermalexpansion
+
+
 
 abstract type AbstractSubstance end
 abstract type AbstractFluid <: AbstractSubstance end
