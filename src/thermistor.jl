@@ -151,18 +151,3 @@ resistance(r::Resistor, T) = r.R₀ * (1 +  r.α*(T - r.T₀))
 temperature(r::Resistor) = r.T₀
 temperature(r::Resistor, R) = 1/r.α * (R/r.R₀ - 1) + r.T₀
 
-"""
-Uma ponte de Wheatstone composta de 4 resistores
-"""
-struct Wheatstone{RT<:Union{Resistor, Thermistor}}
-    R::NTuple{4, RT}
-end
-
-Wheatstone(R1::RT, R2::RT, R3::RT, R4::RT)  where {RT<:Union{Resistor, Thermistor}} = Wheatstone( (R1, R2, R3, R4))
-import Base.getindex
-getindex(w::Wheatstone, i) = w.R[i]
-
-Wheatstone(R::Vector{Thermistor}) = Wheatstone(R...)
-
-resistance(w::Wheatstone, i) = w.R[i]()
-resistance(w::Wheatstone, i, T) = w.R[i](T)

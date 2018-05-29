@@ -11,7 +11,7 @@ module THW
 
 # package code goes here
 
-export Thermistor, Resistor, resistance, temperature, Wheatstone
+export Thermistor, Resistor, resistance, temperature
 
 abstract type AbstractSubstance end
 abstract type AbstractFluid <: AbstractSubstance end
