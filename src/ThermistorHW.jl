@@ -14,7 +14,7 @@ module THW
 export Thermistor, Resistor, resistance, temperature
 export myhorner, IdealGas, AirType, Air, heatcond, viscosity, density, kinviscosity, specheat
 export thermaldiff, prandtl, volthermalexpansion
-
+export reynolds, nusphere, nucylinder, grashof, rayleigh, nuspherefree, hconvect, hconvectcyl
 
 
 abstract type AbstractSubstance end
