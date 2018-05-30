@@ -66,6 +66,33 @@ onde
  * `T` é a temperatura do termistor
  * `Tₒₒ` é a temperatura ao longe
 
+Tradicionalmente existem dois modos básicos de operação do termoanemômetro:
+
+ * Corrente constante
+ * Temperatura constante
+
+### Corrente constante
+
+Quando operando a corrente constante, uma fonte de corrente constante é usada para alimentar
+o elemento sensor, como resultado da convecção do fluido ao passar pelo sensor, a temperatura
+do mesmo muda e assim a voltagem no sensor muda, o que pode ser correlacionado com a velocidade
+do escoamento. Uma vantagem do modo corrente constante é que o circuito eletrônico é bastante
+simples: uma fonte de corrente!
+
+A função `const_current` simula um termistor operando em corrente constante
+em escoamento no ar seco.
+
+### Temperatura constante
+
+Este outro modo de operação é o mais comum na prática. No modo temperatura constante,
+a temperatura do sensor é mantida constante. Como a resistência muda com a temperatura,
+manter a temperatura constante corresponde a manter a resistência constante. Isto é feito
+utilizando um sistema de controle, o que torna o anemômetro mais complexo.
+
+A função `const_temperature` simula um termistor a temperatura constante em
+escoamento no ar seco.
+
+
 ## Transferência de calor e convecção
 
 O que é desconhecido neste modelo é o coeficiente de convecção `h` que pode ser obtido
@@ -112,3 +139,9 @@ termodinâmicas do fluido e do termistor. As seguintes funções estão disponí
  * `volthermalexpansion`: Coeficiente de expansão volumétrica (β)
 
 ## Exemplos
+
+Os notebooks a seguir apresentam exemplos
+
+
+ * [Simulação simples de um anemômetro a temperatura e corrente constantes](https://github.com/pjabardo/ThermistorHW.jl/blob/master/notebooks/termistor.ipynb).
+ * [Constante de tempo do termistor](https://github.com/pjabardo/ThermistorHW.jl/blob/master/notebooks/thermistor-time-const.ipynb)
