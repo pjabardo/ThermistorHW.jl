@@ -44,6 +44,14 @@ Condutividade térmica em W/m.K
 """
 thermalcond(x::AbstractSubstance) = x.k
 
+
+"""
+    thermalcond(x::AbstractSubstance)
+
+Condutividade térmica em W/m.K
+"""
+heatcond(x::AbstractSubstance) = x.k
+
 "Óxido de ferro. Usado nos termistores NTC (?)"
 const Fe₂O₃ = Solid(5242.0, 650.6, 0.58)
 

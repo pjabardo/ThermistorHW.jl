@@ -14,7 +14,7 @@ export Thermistor, Resistor, resistance, temperature
 export myhorner, IdealGas, AirType, Air, heatcond, viscosity, density, kinviscosity, specheat
 export thermaldiff, prandtl, volthermalexpansion
 export reynolds, nusphere, nucylinder, grashof, rayleigh, nuspherefree, hconvect, hconvectcyl
-export Solid, Fe2O3, Fe₂O₃, const_current, const_temperature
+export Solid, Fe2O3, Fe₂O₃, const_current, const_temperature, thermalcond
 export HWSensor
 
 abstract type AbstractSubstance end
