@@ -145,3 +145,5 @@ Os notebooks a seguir apresentam exemplos
 
  * [Simulação simples de um anemômetro a temperatura e corrente constantes](https://github.com/pjabardo/ThermistorHW.jl/blob/master/notebooks/termistor.ipynb).
  * [Constante de tempo do termistor](https://github.com/pjabardo/ThermistorHW.jl/blob/master/notebooks/thermistor-time-const.ipynb)
+ * [Exemplo de simulação do CTA pulsado - eletrônica + térmica(https://github.com/pjabardo/ThermistorHW.jl/blob/master/notebooks/cta-pulsed.ipynb)
+ 

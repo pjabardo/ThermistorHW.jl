@@ -1,0 +1,107 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.7 -->
+<!-- CreationDate: 2018-06-01 11:00:35 -->
+<!-- Magnification: 1 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="359pt" height="269pt"
+	viewBox="3885 1545 5983 4467">
+<g fill="none">
+<!-- Line -->
+<polyline points=" 7200,4875 7200,5020 7125,5044 7275,5092 7125,5140 7275,5188 7125,5236 7275,5284
+ 7125,5332 7275,5380 7200,5404 7200,5550"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7200,3600 7200,3745 7125,3769 7275,3817 7125,3865 7275,3913 7125,3961 7275,4009
+ 7125,4057 7275,4105 7200,4129 7200,4275"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8400,4575 8255,4575 8231,4500 8183,4650 8135,4500 8087,4650 8039,4500 7991,4650
+ 7943,4500 7895,4650 7871,4575 7725,4575"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Circle -->
+<circle cx="7200" cy="2700" r="75" fill="#000000"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7200,2775 7200,3600"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7200,4200 7200,4875"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7875,4575 7200,4575"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8400,4575 9075,4575"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8700,5250 8700,5700"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7200,5475 7200,5700"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8700,4800 8700,4575"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 3900,3000 4500,3000 4500,2100 5100,2100 5100,3000 5700,3000 5700,2100 6300,2100
+ 6300,3000 6900,3000"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Text -->
+<text xml:space="preserve" x="7950" y="4950" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Rf</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="5250" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Cf</text>
+<!-- Text -->
+<text xml:space="preserve" x="6675" y="5400" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Ri</text>
+<!-- Text -->
+<text xml:space="preserve" x="7425" y="2700" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Ei(t)</text>
+<!-- Text -->
+<text xml:space="preserve" x="9300" y="4650" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Eai(t)</text>
+<!-- Text -->
+<text xml:space="preserve" x="6675" y="4650" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Eo(t)</text>
+<!-- Text -->
+<text xml:space="preserve" x="7500" y="3975" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Rt(T)</text>
+<!-- Text -->
+<text xml:space="preserve" x="3900" y="1725" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">PWM</text>
+<!-- Text -->
+<text xml:space="preserve" x="3900" y="1980" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">duty = 0.5</text>
+<!-- Text -->
+<text xml:space="preserve" x="6375" y="2175" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="144" text-anchor="start">Ei</text>
+<!-- Line -->
+<polyline points=" 8550,5025 8850,5025"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8700,4800 8700,5025"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8700,5100 8700,5325"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8550,5100 8850,5100"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7200,5700 7200,5850"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7050,5850 7350,5850"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7125,5925 7275,5925"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7170,6000 7245,6000"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8700,5700 8700,5850"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8550,5850 8850,5850"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8625,5925 8775,5925"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8670,6000 8745,6000"
+	stroke="#000000" stroke-width="8px"/>
+</g>
+</svg>

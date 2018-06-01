@@ -30,14 +30,18 @@ end
 
 Calcula a tensão ao longo do tempo dado o duty cycle do PWM
 """
-function voltage(cta::PulsedCTA, t=0.0, duty=0.5)
+function voltage(cta::PulsedCTA, t=0.0, duty=0.5, tmin=0.0)
+    if t < tmin
+        return cta.Vi
+    end
+    
     T = 1/cta.freq
     p = mod(t, T) / T
 
-    return cta.Vi * ((p<duty) ? 1.0 : 0.0)
+    return cta.Vi * ((p<=duty) ? 1.0 : 0.0)
 end
 
-(cta::PulsedCTA)(t=0.0, duty=0.5) = voltage(cta, t, duty)
+(cta::PulsedCTA)(t=0.0, duty=0.5, tmin=0.0) = voltage(cta, t, duty, tmin)
 
 """
     HeatTrans(Dmm, Ta=20.0, Pa=101.325) 
@@ -69,7 +73,7 @@ hafun(htrans::HeatTrans, U, T) = hconvect(U, htrans.D, T, htrans.Ta, htrans.Pa) 
 
 Calcula `m⋅cₚ` onde `m` é a massa do termistor e `cₚ` é o calor específico do termistor.
 """
-mcpfun(s::Solid, D) = s.cₚ * s.ρ * 4π*(D/2)^3/3
+mcpfun(s::Solid, D) = s.cₚ * s.ρ * 4π/3*(D/2)^3
 
 
 """
@@ -93,19 +97,21 @@ function pulsedcta(dy, y, p, t)
     U = p[3](t)
     htrans = p[4]
     mcp = p[5]
-
+    tmin = p[6]
+    
     hA = htrans(U, y[2])
     Rt = cta.Rt(y[2])
-    Rt = (Rt < 20.0)?20.0 : Rt
-    
+    #Rt = (Rt < 20.0)?20.0 : Rt
+
     Ta = htrans.Ta
     
-    Ei = cta(t, duty)
+    Ei = cta(t, duty, tmin)
     Ri = cta.Ri
     RC = cta.Rf * cta.Cf
+    I = Ei / (Rt + Ri)
     
     dy[1] = 1/RC * ( Ei * Ri/(Rt + Ri) - y[1] )
-    dy[2] = -hA/mcp * (y[2] - Ta) + Ei*Ei / Rt / mcp
+    dy[2] = -hA/mcp * (y[2] - Ta) + Rt/mcp * I*I
 
     return
 end
