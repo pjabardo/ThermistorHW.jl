@@ -2,3 +2,8 @@
 *.jl.*.cov
 *.jl.mem
 *~
+termoanem.aux
+termoanem.bbl
+termoanem.blg
+termoanem.log
+termoanem.pdf
