@@ -21,8 +21,8 @@ struct PulsedCTA
     Vi::Float64
     "Frequência do PWM"
     freq::Float64
-    PulsedCTA(Rt::Thermistor, Ri=100.0, Rf=10e3, Cf=47e-6, Vi=24.0,
-              freq=1000.0, duty=0.5) = new(Rt, Ri, Rf, Cf, Vi, freq)
+    PulsedCTA(Rt::Thermistor; Ri=100.0, Rf=10e3, Cf=47e-6, Vi=24.0,
+              freq=1000.0) = new(Rt, Ri, Rf, Cf, Vi, freq)
 end
 
 """
@@ -63,15 +63,15 @@ struct HeatTrans
     S::Solid
     m::Float64
     mcp::Float64
-    function HeatTrans(Tw=85.0, Dmm=2.0,  Ta=20.0, Pa=93.0, S=Fe₂O₃)
+    function HeatTrans(Tw=85.0; Dmm=2.0,  Ta=20.0, Pa=93.0, solid=Fe₂O₃)
         D = Dmm/1000
         R = D/2
         A = 4π*R^2
         Vol = A*R/3
-        m = Vol * S.ρ
-        mcp = m * S.cₚ
+        m = Vol * solid.ρ
+        mcp = m * solid.cₚ
         
-        new(Tw, D, Ta, Pa, A, S, m, mcp)
+        new(Tw, D, Ta, Pa, A, solid, m, mcp)
     end
     
 end
