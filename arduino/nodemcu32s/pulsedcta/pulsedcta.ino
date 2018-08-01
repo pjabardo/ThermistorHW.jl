@@ -128,7 +128,7 @@ void loop()
 
   Tm1 = Temp;
   
-  float Eo = airead(AICHAN, NSAMPLES);
+  float Eo = airead(AICHAN, NSAMPLES)+0.15;
   float Rt;
   
   if (Eo < 0.1){
