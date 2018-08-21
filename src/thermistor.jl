@@ -61,7 +61,7 @@ struct Thermistor <: AbstractResistor
     B::Float64
     "Temperatura de referência em K"
     T₀::Float64
-    Thermistor(R₀=5e3, B=0.0, T₀=20.0) = new(R₀, B, T₀+273.15)
+    Thermistor(R₀=5e3, B=0.0, T₀=25.0) = new(R₀, B, T₀+273.15)
 end
 
 
