@@ -6,8 +6,13 @@
 
 const int NSAMPLES = 1154;
 
-const int AICHANS[] = {35, 34, 39, 36, 26, 25, 33, 32, 13, 12, 14, 27, 15, 2, 0, 4};
-const int NCHANS = 16;
+//const int AICHANS[] = {35, 34, 39, 36, 26, 25, 33, 32, 13, 12, 14, 27, 15, 2, 0, 4};
+//const int NCHANS = 16;
+
+const int AICHANS[] = {35, 34, 39, 36, 26, 25, 33, 32, 13, 12, 14, 27, 15,  4};
+const int NCHANS = 14;
+
+
 int aivals[NCHANS];
 
 
@@ -31,11 +36,10 @@ void readchans(const int chans[], int nchans, int aival[], int nsamples){
 
 void setup() 
 {
-  analogSetAttenuation(ADC_6db)
-  for (int i = 0; i < NCHANS; ++i){
+  //for (int i = 0; i < NCHANS; ++i){
     //pinMode(AICHANS[i], INPUT);
      
-  }
+  //}
   Serial.begin(9600);
   
   
@@ -45,14 +49,14 @@ void setup()
 void loop() 
 {
   int t1 = millis();
-  readchans(AICHANS, NCHANS, aivals, NSAMPLES);
+  //readchans(AICHANS, NCHANS, aivals, NSAMPLES);
   
-  Serial.printf("IPT\t%d", t1);
-  for (int k = 0; k < NCHANS; ++k){
-    Serial.printf("\t%d", aivals[k]);
-  }
+  //Serial.printf("IPT\t%d", t1);
+  //for (int k = 0; k < NCHANS; ++k){
+  //  Serial.printf("\t%d", aivals[k]);
+  //}
 
-  Serial.printf("\n");
+  //Serial.printf("\n");
   
 
   
