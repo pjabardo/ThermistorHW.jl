@@ -49,14 +49,14 @@ void setup()
 void loop() 
 {
   int t1 = millis();
-  //readchans(AICHANS, NCHANS, aivals, NSAMPLES);
+  readchans(AICHANS, NCHANS, aivals, NSAMPLES);
   
-  //Serial.printf("IPT\t%d", t1);
-  //for (int k = 0; k < NCHANS; ++k){
-  //  Serial.printf("\t%d", aivals[k]);
-  //}
+  Serial.printf("IPT\t%d", t1);
+  for (int k = 0; k < NCHANS; ++k){
+    Serial.printf("\t%d", aivals[k]);
+  }
 
-  //Serial.printf("\n");
+  Serial.printf("\n");
   
 
   

@@ -59,7 +59,7 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
   // Command all devices on bus to read temperature  
   sensors.requestTemperatures();  
 
-  Serial.print("IPTT\t");
+  Serial.print("IPT\t");
   Serial.print(millis());
   for (int i = 0; i < NDEVS; ++i){
     Serial.print("\t");
