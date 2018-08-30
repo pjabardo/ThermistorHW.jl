@@ -19,84 +19,55 @@ DallasTemperature sensors(&oneWire);
 // See the tutorial on how to obtain these addresses:
 // http://www.hacktronics.com/Tutorials/arduino-1-wire-address-finder.html
 
-DeviceAddress Probe01 = { 0x28, 0xFF, 0x5A, 0xB6, 0x82, 0x15, 0x02, 0x7A }; 
-DeviceAddress Probe02 = { 0x28, 0xFF, 0x8E, 0xDE, 0x82, 0x15, 0x02, 0xB7 }; 
-DeviceAddress Probe03 = { 0x28, 0xFF, 0xC1, 0xF8, 0x82, 0x15, 0x02, 0x48 }; 
-DeviceAddress Probe04 = { 0x28, 0xFF, 0x7E, 0x0A, 0x82, 0x15, 0x03, 0x40 }; 
-DeviceAddress Probe05 = { 0x28, 0xFF, 0xAF, 0xF3, 0x82, 0x15, 0x02, 0x6F }; 
+uint8_t Probe01[] = { 0x28, 0xFF, 0x5A, 0xB6, 0x82, 0x15, 0x02, 0x7A }; 
+uint8_t Probe02[] = { 0x28, 0xFF, 0x8E, 0xDE, 0x82, 0x15, 0x02, 0xB7 }; 
+uint8_t Probe03[] = { 0x28, 0xFF, 0xC1, 0xF8, 0x82, 0x15, 0x02, 0x48 }; 
+uint8_t Probe04[] = { 0x28, 0xFF, 0x7E, 0x0A, 0x82, 0x15, 0x03, 0x40 }; 
+//uint8_t Probe05[] = { 0x28, 0xFF, 0xAF, 0xF3, 0x82, 0x15, 0x02, 0x6F }; 
+
+
+#define NDEVS 4
+uint8_t *addrs[NDEVS];
 
 
 void setup()   /****** SETUP: RUNS ONCE ******/
 {
+  addrs[0] = Probe01;
+  addrs[1] = Probe02;
+  addrs[2] = Probe03;
+  addrs[3] = Probe04;
+  //addrs[4] = Probe05;
+  
   // start serial port to show results
   Serial.begin(9600);
-  Serial.print("Initializing Temperature Control Library Version ");
-  Serial.println(DALLASTEMPLIBVERSION);
   
   // Initialize the Temperature measurement library
   sensors.begin();
   
   // set the resolution to 12 bit (Can be 9 to 12 bits .. lower is faster)
-  sensors.setResolution(Probe01, 12);
-  sensors.setResolution(Probe02, 12);
-  sensors.setResolution(Probe03, 12);
-  sensors.setResolution(Probe04, 12);
-  sensors.setResolution(Probe05, 12);
+  for (int i = 0; i < NDEVS; ++i){
+    sensors.setResolution(addrs[i], 12);
+  }
 
 }//--(end setup )---
 
+
 void loop()   /****** LOOP: RUNS CONSTANTLY ******/
 {
-  delay(1000);
-  Serial.println();
-  Serial.print("Number of Devices found on bus = ");  
-  Serial.println(sensors.getDeviceCount());   
-  Serial.print("Getting temperatures... ");  
-  Serial.println();   
+  //delay(200);
   
   // Command all devices on bus to read temperature  
   sensors.requestTemperatures();  
-  
-  Serial.print("Probe 01 temperature is:   ");
-  printTemperature(Probe01);
-  Serial.println();
 
-  Serial.print("Probe 02 temperature is:   ");
-  printTemperature(Probe02);
+  Serial.print("IPTT\t");
+  Serial.print(millis());
+  for (int i = 0; i < NDEVS; ++i){
+    Serial.print("\t");
+    Serial.print(sensors.getTempC(addrs[i]));
+    
+  }
   Serial.println();
- 
-  Serial.print("Probe 03 temperature is:   ");
-  printTemperature(Probe03);
-  Serial.println();
-   
-  Serial.print("Probe 04 temperature is:   ");
-  printTemperature(Probe04);
-  Serial.println();
-  
-  Serial.print("Probe 05 temperature is:   ");
-  printTemperature(Probe05);
-  Serial.println();
-   
   
 }//--(end main loop )---
 
-/*-----( Declare User-written Functions )-----*/
-void printTemperature(DeviceAddress deviceAddress)
-{
-
-float tempC = sensors.getTempC(deviceAddress);
-
-   if (tempC == -127.00) 
-   {
-   Serial.print("Error getting temperature  ");
-   } 
-   else
-   {
-   Serial.print("C: ");
-   Serial.print(tempC);
-   Serial.print(" F: ");
-   Serial.print(DallasTemperature::toFahrenheit(tempC));
-   }
-}// End printTemperature
-//*********( THE END )***********
 
