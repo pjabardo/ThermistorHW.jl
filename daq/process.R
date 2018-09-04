@@ -1,3 +1,5 @@
+require(wutils)
+
 process1 <- function(){
 
     vel <- c(1, 2.03, 5.06, 7, 10.04, 12.07, 16.01, 10.04, 6.04, 3)
@@ -77,7 +79,7 @@ temperature <- function(th, R=5000){
 
 heatcond <- function(Tc) 1e-3 * (24.34607 + 0.07526*Tc)
 prandtl <- function(Tc) 0.714296 - 0.000268*Tc
-visc <- function(Tc){
+viscosity <- function(Tc){
 	C = 120
 	T0 <- 291.15
 	mu0 <- 18.27e-6
@@ -86,6 +88,67 @@ visc <- function(Tc){
 	      
 }
 
-density <- function(Tc, P=101325) P /(287.06 * (Tc+273.15))
+specmass <- function(Tc, P=101.325) 1000*P /(287.06 * (Tc+273.15))
 
 
+
+
+icalibrfun <- function(R, U, Eo, Ta, Pa, i0=12.3e-3, alpha=115/15){
+    D <- 1
+    A <- 1 #4*pi(R/2)^2
+    Rw <- alpha * Eo / i0
+    Tw <- temperature(R, Rw)
+    Tf <- (Ta + Tw) / 2
+    
+    Pr <- prandtl(Tf)
+    k <- heatcond(Tf)
+    rho <- specmass(Tf, Pa)
+    mu <- viscosity(Tf)
+    Re <- rho*U*D/mu
+
+    Nu <- alpha * Eo * i0 * D / (A*Pr^0.333333 * k * (Tw - Ta))
+
+    fit <- powerFit(Re, Nu)
+    a <- as.double(fit[1])
+    b <- as.double(fit[2])
+    
+    calibr.data <- data.frame(U=U, Eo=Eo, Tw=Tw, Rw-Rw, Tf=Tf, Ta=Ta, Pa=Pa, Re=Re, Nu=Nu, Pr=Pr, k=k, rho=rho, mu=mu)
+
+    cal <- list(a=a, b=b, R=R, i0=i0, alpha=alpha, calibr.data=calibr.data)
+    class(cal) <- "CCAcalibr"
+    return(cal)
+}
+
+applycal <- function(cal, Eo, Ta=25, Pa=93.0){
+
+    Rw <- cal$alpha * Eo / cal$i0
+    Tw <- temperature(R, Rw)
+    Tf <- (Ta + Tw) / 2
+    
+    Pr <- prandtl(Tf)
+    k <- heatcond(Tf)
+    rho <- specmass(Tf, Pa)
+    mu <- viscosity(Tf)
+    D <- 1
+    A <- 1
+    i0 <- cal$i0
+    
+    Nu <- cal$alpha * Eo * i0 * D / (A*Pr^0.333333 * k * (Tw - Ta))
+
+    a <- cal$a
+    b <- cal$b
+
+    U <- mu/rho * (Nu/a)^(1/b)
+    return(U)
+
+}
+
+
+    
+    
+
+    
+    
+
+        
+    
