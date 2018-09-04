@@ -53,3 +53,39 @@ process2 <- function(){
 
 }
 
+Thermistor <- function(R0=5e3, B=3470, T0=25){
+	x <- list(R0=R0, B=B, T0=T0)
+	class(x) <- "thermistor"
+	return(x)
+}
+
+resistance <- function(th, temp=25){
+	T0 <- th$T0 + 273.15
+	T1 <- temp + 273.15
+	B <- th$B
+	
+	return(th$R0 * exp( B * (1/T1 - 1/T0 )))
+}
+
+temperature <- function(th, R=5000){
+	T0 <- th$T0 + 273.15
+	R0 <- th$R0
+	B <- th$B
+	T1 <- 1 / (1/B * log(R/R0) + 1/T0) - 273.15
+	return(T1)
+}
+
+heatcond <- function(Tc) 1e-3 * (24.34607 + 0.07526*Tc)
+prandtl <- function(Tc) 0.714296 - 0.000268*Tc
+visc <- function(Tc){
+	C = 120
+	T0 <- 291.15
+	mu0 <- 18.27e-6
+	Tk <- Tc + 273.15
+	return(mu0 * (T0 + C) / (Tk + C) * (Tk / T0)^1.5)
+	      
+}
+
+density <- function(Tc, P=101325) P /(287.06 * (Tc+273.15))
+
+
