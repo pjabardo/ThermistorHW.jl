@@ -86,13 +86,11 @@ class SerialDAQ(object):
 
 class Anemometer(object):
 
-    def __init__(self, devu, devt):
-
+    def __init__(self, devu="/dev/velocidade", devt="/dev/temperatura"):
         self.vel = SerialDAQ(devu)
         self.temp = SerialDAQ(devt)
         
     def start(self, ttot=1):
-
         self.vel.start(ttot)
         self.temp.start(ttot)
 
