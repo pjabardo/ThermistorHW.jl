@@ -15,39 +15,41 @@ import time
 
 
 class Acquiring(threading.Thread):
-    def __init__(self, s, ttot=1, header='IPT'):
+    def __init__(self, s, ttot=1, header=b'IPT'):
         self.s = s
         threading.Thread.__init__(self)
         self.ttot = ttot
         self.nsamples = 0
         self.x = None
-        self.header = header
         self.done = False
+        self.header = header
         
     def run(self):
         if self.s.isOpen():
             self.s.close()
         self.s.open()
+        self.s.flushOutput()
+        self.s.flushInput()
         self.x = []
+
+        h = self.header
+        nh = len(h)+1 # Compensar o '\t'
+        
         t1 = time.time()
         t2 = t1 + self.ttot
         self.tend = t2
         self.taq = 0.0
-        nh = len(self.header)
+        
         while True:
-            ll = self.s.readline().decode('ascii').strip()
-            if ll[0:nh] == self.header:
-                self.x.append(ll)
+            ll = self.s.readline()
+            idx = ll.find(h)
+            if idx >= 0:
+                self.x.append(ll[(idx+nh):].decode('ascii'))
                 self.nsamples += 1
-                break
-                    
-        while True:
-            ll = self.s.readline().decode('ascii').strip()
-            self.x.append(ll)
-            self.nsamples += 1
-            self.taq = time.time()
-            if self.taq >= t2:
-                break
+                self.taq = time.time()
+                if self.taq >= t2:
+                    break
+        
         self.s.close()
         self.done = True
         
@@ -55,13 +57,13 @@ class Acquiring(threading.Thread):
 class SerialDAQ(object):
 
     
-    def __init__(self, dev, header='IPT'):
+    def __init__(self, dev, header=b'IPT'):
         self.s = serial.Serial(dev, 9600)
         self.s.close()
         self.thrd = None
         self.dev = dev
         self.header = header
-
+        
     def start(self, ttot = 1):
         self.thrd = Acquiring(self.s, ttot, self.header)
         self.thrd.start()
@@ -100,8 +102,8 @@ class SerialDAQ(object):
 class Anemometer(object):
 
     def __init__(self, devu="/dev/velocidade", devt="/dev/temperatura"):
-        self.vel = SerialDAQ(devu)
-        self.temp = SerialDAQ(devt)
+        self.vel = SerialDAQ(devu, b'IPT')
+        self.temp = SerialDAQ(devt, b'IPT')
         
     def start(self, ttot=1):
         self.vel.start(ttot)
