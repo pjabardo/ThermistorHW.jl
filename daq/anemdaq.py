@@ -12,12 +12,13 @@ import time
 
 
 class Acquiring(threading.Thread):
-    def __init__(self, s, ttot=1):
+    def __init__(self, s, ttot=1, header=b'IPT'):
         self.s = s
         threading.Thread.__init__(self)
         self.ttot = ttot
         self.nsamples = 0
         self.x = None
+        self.header = header
         self.done = False
         
     def run(self):
@@ -27,10 +28,22 @@ class Acquiring(threading.Thread):
         self.x = []
         t1 = time.time()
         t2 = t1 + self.ttot
+        self.tend = t2
+        self.taq = 0.0
+        nh = len(self.header)
         while True:
-            self.x.append(self.s.readline())
+            ll = self.s.readline().strip()
+            if ll[0:nh] == self.header:
+                self.x.append(ll)
+                self.nsamples += 1
+                break
+                    
+        while True:
+            ll = self.s.readline().strip()
+            self.x.append(ll)
             self.nsamples += 1
-            if time.time() >= t2:
+            self.taq = time.time()
+            if self.taq >= t2:
                 break
         self.s.close()
         self.done = True
@@ -39,15 +52,15 @@ class Acquiring(threading.Thread):
 class SerialDAQ(object):
 
     
-    def __init__(self, dev):
+    def __init__(self, dev, header=b'IPT'):
         self.s = serial.Serial(dev, 9600)
         self.s.close()
         self.thrd = None
         self.dev = dev
-        return None
+        self.header = header
 
     def start(self, ttot = 1):
-        self.thrd = Acquiring(self.s, ttot)
+        self.thrd = Acquiring(self.s, ttot, self.header)
         self.thrd.start()
         return None
     
@@ -64,24 +77,21 @@ class SerialDAQ(object):
         if self.thrd is not None:
             return self.thrd.nsamples
         return 0
+
+    def timeremaining(self):
+        if self.thrd is not None:
+            return self.thrd.tend - self.thrd.taq
+        return 0.0
+    
+        
     def isAcquiring(self):
         if self.thrd is not None:
             return not self.thrd.done
         return False
     
     def acquire(self, ttot=1):
-        if self.s.isOpen():
-            self.s.close()
-        self.s.open()
-        x = []
-        t1 = time.time()
-        t2 = t1 + ttot
-        while True:
-            x.append(self.s.readline())
-            if time.time() >= t2:
-                break
-        self.s.close()
-        return x
+        self.start(ttot)
+        return self.finish()
     
 
 class Anemometer(object):
@@ -102,6 +112,8 @@ class Anemometer(object):
         return(dict(U=xvel, T=xtemp))
     def samplesread(self):
         return self.vel.samplesread(), self.temp.samplesread()
+    def timeremaining(self):
+        return self.vel.timeremaining()
     
     def isAcquiring(self):
         return self.vel.isAcquiring() or self.temp.isAcquiring()
