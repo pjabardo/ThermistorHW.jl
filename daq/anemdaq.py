@@ -35,14 +35,14 @@ class Acquiring(threading.Thread):
         self.taq = 0.0
         nh = len(self.header)
         while True:
-            ll = self.s.readline().strip().decode("ascii")
+            ll = self.s.readline().decode('ascii').strip()
             if ll[0:nh] == self.header:
                 self.x.append(ll)
                 self.nsamples += 1
                 break
                     
         while True:
-            ll = self.s.readline().strip().decode("ascii")
+            ll = self.s.readline().decode('ascii').strip()
             self.x.append(ll)
             self.nsamples += 1
             self.taq = time.time()
