@@ -39,7 +39,7 @@ class CCACalibr(object):
 
         Rw = self.alpha * E / self.i0
         Tw = self.R.temp(Rw)
-        Tf = (Ta + Tw)
+        Tf = (Ta + Tw)/2
 
         Pr = fluid.prandtl(Tf, Pa)
         k = fluid.heatcond(Tf, Pa)
