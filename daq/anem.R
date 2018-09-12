@@ -53,7 +53,7 @@ CCACalibr <- function(R, U, Eo, Ta=20.0, Pa=93.0, i0=12.3e-3, alpha=7.66667, flu
     Pr <- prandtl(fluid, Tf, Pa)
     k <- heatcond(fluid, Tf, Pa)
     rho <- specmass(fluid, Tf, Pa)
-    mu <- viscosiyty(fluid, Tf, Pa)
+    mu <- viscosity(fluid, Tf, Pa)
 
     Re <- rho * U / mu
     Nu <- alpha * Eo * i0 / (Pr^0.33333 * k * (Tw-Ta))
@@ -64,7 +64,7 @@ CCACalibr <- function(R, U, Eo, Ta=20.0, Pa=93.0, i0=12.3e-3, alpha=7.66667, flu
     return(cal)
 }
 
-velocity <- function(cal, E, Ta=NULL, Pa=NULL, i0=NULL, fluid=NULL){
+applycal <- function(cal, E, Ta=NULL, Pa=NULL, i0=NULL, fluid=NULL){
 
     if (is.null(Ta)) Ta <- cal$Ta
     if (is.null(Pa)) Pa <- cal$Pa
@@ -78,13 +78,13 @@ velocity <- function(cal, E, Ta=NULL, Pa=NULL, i0=NULL, fluid=NULL){
     Pr <- prandtl(fluid, Tf, Pa)
     k <- heatcond(fluid, Tf, Pa)
     rho <- specmass(fluid, Tf, Pa)
-    mu <- viscosiyty(fluid, Tf, Pa)
+    mu <- viscosity(fluid, Tf, Pa)
 
     Nu <- cal$alpha * E * i0 / (Pr^0.33333 * k * (Tw-Ta))
-    a <- cal$fit$a
-    b <- cal$fit$b
+    a <- cal$fit['a']
+    b <- cal$fit['b']
 
-    return mu / rho * (Nu/a)^(1/b)
+    return(mu / rho * (Nu/a)^(1/b))
 }
 
 
